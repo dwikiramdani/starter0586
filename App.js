@@ -23,7 +23,7 @@ export default class App extends Component{
       location: {},
       latitude: 1,
       longitude: 1,
-      eventCoor: {},
+      eventCoor: '',
     }
   }
 
@@ -54,8 +54,13 @@ export default class App extends Component{
     return false;
   }
 
-  onMapPress (mapData) {
-    alert(JSON.stringify(mapData))
+  onMapPress = (mapData) => {
+    const newCoor = JSON.stringify(mapData.nativeEvent.coordinate)
+
+    this.setState({
+      eventCoor: newCoor
+    })
+    console.warn(mapData.nativeEvent.coordinate)
   }
 
   getLocation = async () => {
@@ -130,15 +135,15 @@ export default class App extends Component{
             <Text>{this.state.longitude}</Text>
         </View>
         <MapView style={{width: 400, height: 400}}
-          initialRegion={{
+          region={{
             latitude: this.state.latitude,
             longitude: this.state.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
-          onPress={this.onMapPress.bind(this, this.state.eventCoor)}
+          onPress={(a) => this.onMapPress(a)}
         />
-        <Text> test {this.eventCoor}</Text>
+        <Text> test {this.state.eventCoor}</Text>
       </View>
     );
   }
