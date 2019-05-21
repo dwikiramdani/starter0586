@@ -40,42 +40,12 @@ export default class App extends Component{
   constructor(props){
     super(props);
     this.state = {
-      isStandby: true,
-      isStarted: false,
-      isPaused: false,
-      isFinished: false,
-    }
-  }
-
-  ubahStatus = (val) => {
-    if (val === 'standby') {
-      this.setState({
-        isStandby: true,
-        isStarted: false,
-        isPaused: false,
-        isFinished: false
-      })
-    } else if (val === 'start') {
-      this.setState({
-        isStandby: false,
-        isStarted: true,
-        isPaused: false,
-        isFinished: false
-      })
-    }else if (val === 'pause'){
-      this.setState({
-        isStandby: false,
-        isStarted: false,
-        isPaused: true,
-        isFinished: false
-      })
-    }else {
-      this.setState({
-        isStandby: false,
-        isStarted: false,
-        isPaused: false,
-        isFinished: true
-      })
+      isTabA: true,
+      isTabB: false,
+      isTabC: false,
+      isLoading: true,
+      ModalVisibleStatus: false,
+      TempImageURL : ''
     }
   }
 
@@ -98,8 +68,8 @@ export default class App extends Component{
         <MapView
           style={{width:'auto', height: 215, zIndex: 5, flex: 0}}
           initialRegion={{
-            latitude: -6.172092,
-            longitude: 106.785625,
+            latitude: 37.78825,
+            longitude: -122.4324,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
@@ -107,54 +77,17 @@ export default class App extends Component{
         {/* Map */}
 
         <CircularProgress />
-        
-        {/* Progress Info */}
 
-        {
-          this.state.isStarted ?
-          <View style={{flex: 1, flexDirection: 'row', marginTop: 48,}}>
-            <View style={{flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: 56}}>
-              <Text style={{fontFamily: 'Lato', fontSize: 14, color: '#ACACAD'}}>TIME</Text>
-              <Text style={{fontFamily: 'Lato', fontSize: 18, color: '#222222', fontWeight: 'bold'}}>00:55:32</Text>
-            </View>
-            <View style={{flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', borderLeftWidth: .75, borderLeftColor: '#E0E0E0',borderRightWidth: .75, borderRightColor: '#E0E0E0', height: 56}}>
-              <Text style={{fontFamily: 'Lato', fontSize: 14, color: '#ACACAD'}}>PACE</Text>
-              <Text style={{fontFamily: 'Lato', fontSize: 18, color: '#222222', fontWeight: 'bold'}}>8'9" / km</Text>
-            </View>
-            <View style={{flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: 56}}>
-              <Text style={{fontFamily: 'Lato', fontSize: 14, color: '#ACACAD', }}>CALORIES</Text>
-              <Text style={{fontFamily: 'Lato', fontSize: 18, color: '#222222', fontWeight: 'bold'}}>1.300 kal</Text>
-            </View>
-          </View>
-          :
-          <View style={{flex: 1, flexDirection: 'row', marginTop: 48,}}>
-  
-          </View>
-        }
-
-        <View style={{ flex: 0, flexDirection: 'row', marginBottom: 54}}>
+        <View style={{ flex: 0, flexDirection: 'row'}}>
         <View style={{flex: 1,  justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}>
+          
           </View>
           <View style={{flex: 1,  justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}>
-          
-          {
-            this.state.isStandby ?
-          <TouchableOpacity style={{width: 128, height: 128, backgroundColor: '#FFC000', justifyContent: 'center', alignContent: 'center', alignItems: 'center', borderWidth: 6, borderRadius: 200, borderColor: '#F6881F'}}
-          onPress={() => this.ubahStatus('start')}
-          >
+          <TouchableOpacity style={{width: 128, height: 128, backgroundColor: '#FFC000', justifyContent: 'center', alignContent: 'center', alignItems: 'center', borderWidth: 6, borderRadius: 200, borderColor: '#F6881F'}}>
             <Text style={{fontFamily: 'Lato', fontSize: 48, color: 'white', fontWeight: 'bold'}}>
               GO
             </Text>
           </TouchableOpacity>
-          :
-          <TouchableOpacity style={{width: 128, height: 128, backgroundColor: '#FFC000', justifyContent: 'center', alignContent: 'center', alignItems: 'center', borderWidth: 6, borderRadius: 200, borderColor: '#F6881F'}}
-          onPress={() => this.ubahStatus('standby')}
-          >
-            <Text style={{fontFamily: 'Lato', fontSize: 48, color: 'white', fontWeight: 'bold'}}>
-              GO
-            </Text>
-          </TouchableOpacity>
-          }
           </View>
           <View style={{flex: 1,  justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}>
           <TouchableOpacity style={{width: 64, height: 64, backgroundColor: '#D62F2F', justifyContent: 'center', alignContent: 'center', alignItems: 'center', borderRadius: 200, marginRight: 43}}>
@@ -202,8 +135,8 @@ const styles = StyleSheet.create({
     alignContent: 'center', 
     alignItems: 'center', 
     zIndex: 1, 
-    height: 'auto',
-    marginTop: -144,
+    height: 288,
+    bottom: 144,
   },
   baseProgress: {
     width: 288,
@@ -215,7 +148,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
     shadowColor: "#000",
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   ongoingProgress: {
     width: 288,
@@ -247,6 +180,6 @@ const styles = StyleSheet.create({
     borderLeftColor: '#E0E0E0',
     borderRightColor: 'transparent',
     borderTopColor: '#E0E0E0',
-    transform:[{rotateZ: '-215deg'}],
+    transform:[{rotateZ: '-140deg'}]
   },
 });
