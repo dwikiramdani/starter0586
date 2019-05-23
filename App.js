@@ -269,12 +269,21 @@ export default class App extends Component{
         }
 
         <View style={{ flex: 0, flexDirection: 'row', marginBottom: 54}}>
-          <View style={{flex: 1,  justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}>
-            </View>
+          {
+            this.state.isPaused ?
             <View style={{flex: 1,  justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}>
+              <TouchableOpacity style={{width: 64, height: 64, backgroundColor: '#7C7C7D', justifyContent: 'center', alignContent: 'center', alignItems: 'center', borderRadius: 200, marginLeft: 43}}>
+                <Image source={require('./assets/reset.png')} resizeMode='stretch'/>
+              </TouchableOpacity>
+            </View>
+            :
+            <View style={{flex: 1,  justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}>
+            </View>
+          }
             
-            {
-              this.state.isStandby ?
+          <View style={{flex: 1,  justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}>    
+          {
+            this.state.isStandby ? 
             <TouchableOpacity style={{width: 128, height: 128, backgroundColor: '#FFC000', justifyContent: 'center', alignContent: 'center', alignItems: 'center', borderWidth: 6, borderRadius: 200, borderColor: '#F6881F'}}
             onPress={() => this.ubahStatus('start')}
             >
@@ -282,23 +291,32 @@ export default class App extends Component{
                 GO
               </Text>
             </TouchableOpacity>
-            :
+
+            :this.state.isPaused ? 
             <TouchableOpacity style={{width: 128, height: 128, backgroundColor: '#FFC000', justifyContent: 'center', alignContent: 'center', alignItems: 'center', borderWidth: 6, borderRadius: 200, borderColor: '#F6881F'}}
-            onPress={() => this.ubahStatus('standby')}
+            onPress={() => this.ubahStatus('start')}
             >
               <Text style={{fontFamily: 'Lato', fontSize: 48, color: 'white', fontWeight: 'bold'}}>
-                GOGOGOGO
+                GO
               </Text>
             </TouchableOpacity>
-            }
-            </View>
-            <View style={{flex: 1,  justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}>
-          <TouchableOpacity style={{width: 64, height: 64, backgroundColor: '#D62F2F', justifyContent: 'center', alignContent: 'center', alignItems: 'center', borderRadius: 200, marginRight: 43}}>
-            <Text style={{fontFamily: 'Lato', fontSize: 18, color: 'white', fontWeight: 'bold'}}>
-              SOS
-            </Text>
-          </TouchableOpacity>
+            
+            :
+            <TouchableOpacity style={{width: 128, height: 128, backgroundColor: '#7C7C7D', justifyContent: 'center', alignContent: 'center', alignItems: 'center', borderWidth: 6, borderRadius: 200, borderColor: '#5D5D5E'}}
+            onPress={() => this.ubahStatus('pause')}
+            >
+              <Image source={require('./assets/pause.png')} resizeMode='stretch'/>
+            </TouchableOpacity>
+          }
+          
           </View>
+            <View style={{flex: 1,  justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}>
+              <TouchableOpacity style={{width: 64, height: 64, backgroundColor: '#D62F2F', justifyContent: 'center', alignContent: 'center', alignItems: 'center', borderRadius: 200, marginRight: 43}}>
+                <Text style={{fontFamily: 'Lato', fontSize: 18, color: 'white', fontWeight: 'bold'}}>
+                  SOS
+                </Text>
+              </TouchableOpacity>
+            </View>
         </View>
         {/* <View style={styles.buttonContainer}>
           <TouchableOpacity style={[styles.bubble, styles.button]}>
